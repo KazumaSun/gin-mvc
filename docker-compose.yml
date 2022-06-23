@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  api:
+    container_name: api
+    build:
+      context: ./
+    ports:
+      - 3000:3000
+    links:
+      - db
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/app
+
+  db:
+    container_name: db
+    image: mysql:5.7
+    hostname: mysql
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --skip-character-set-client-handshake
+    environment:
+      MYSQL_DATABASE: mvc
+      MYSQL_ROOT_PASSWORD: pwd
+      MYSQL_USER: sato
+      MYSQL_USER_PASSWORD: pwd
+
+
+
